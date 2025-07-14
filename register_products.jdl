@@ -1,0 +1,30 @@
+application {
+  config {
+    baseName productApp,
+    applicationType monolith,
+    packageName com.example.product,
+    authenticationType jwt,
+    prodDatabaseType postgresql,
+    devDatabaseType h2Disk,
+    buildTool maven,
+    clientFramework angular,
+    enableTranslation false,
+    nativeLanguage en,
+    testFrameworks [cypress]
+  }
+
+  entities Product
+}
+
+entity Product {
+  name String required,
+  price BigDecimal,
+  stock Integer,
+  barcode String required,
+  expirationDate Instant,
+  createdAt Instant
+}
+
+dto Product with mapstruct
+service Product with serviceClass
+paginate Product with pagination

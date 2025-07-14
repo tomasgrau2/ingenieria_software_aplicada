@@ -1,0 +1,19 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "productApp",
+    "buildTool": "maven",
+    "clientFramework": "angular",
+    "devDatabaseType": "h2Disk",
+    "enableTranslation": false,
+    "entities": ["Product"],
+    "jhipsterVersion": "8.11.0",
+    "jwtSecretKey": "MzA5Nzg4M2RlMDQzOGM1ZmUzMDY2OTk4NGZiZGQ0YWFjZjUyODhiMmY4ZmI3ODM3YjA4MjVjZjNlMDYxM2ZkZDFiZDJkZDUwZjVkNzQ4M2M0ZTNhMzI5NGM5ZTE1ODA1ZGU0M2M0OTJiMGExNjllY2Q1NzBkY2RhMDNmY2VhZjU=",
+    "lastLiquibaseTimestamp": 1752531126000,
+    "nativeLanguage": "en",
+    "packageName": "com.example.product",
+    "prodDatabaseType": "postgresql",
+    "testFrameworks": ["cypress"]
+  }
+}
