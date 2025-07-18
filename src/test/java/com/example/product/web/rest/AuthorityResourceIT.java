@@ -193,7 +193,7 @@ class AuthorityResourceIT {
     }
 
     protected Authority getPersistedAuthority(Authority authority) {
-        return authorityRepository.findById(authority.getName()).orElseThrow();
+        return authorityRepository.findById(authority.getName()).orElseThrow(() -> new RuntimeException("Authority not found"));
     }
 
     protected void assertPersistedAuthorityToMatchAllProperties(Authority expectedAuthority) {

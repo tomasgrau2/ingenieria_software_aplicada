@@ -12,6 +12,11 @@ const routes: Routes = [
     title: 'home.title',
   },
   {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
+    title: 'Dashboard de Productos',
+  },
+  {
     path: '',
     loadComponent: () => import('./layouts/navbar/navbar.component'),
     outlet: 'navbar',

@@ -248,8 +248,8 @@ class AccountResourceIT {
 
         Optional<User> testUser = userRepository.findOneByEmailIgnoreCase("alice2@example.com");
         assertThat(testUser).isPresent();
-        testUser.orElseThrow().setActivated(true);
-        userRepository.save(testUser.orElseThrow());
+        testUser.orElseThrow(() -> new RuntimeException("User not found")).setActivated(true);
+        userRepository.save(testUser.orElseThrow(() -> new RuntimeException("User not found")));
 
         // Second (already activated) user
         restAccountMockMvc
@@ -322,10 +322,12 @@ class AccountResourceIT {
 
         Optional<User> testUser4 = userRepository.findOneByLogin("test-register-duplicate-email-3");
         assertThat(testUser4).isPresent();
-        assertThat(testUser4.orElseThrow().getEmail()).isEqualTo("test-register-duplicate-email@example.com");
+        assertThat(testUser4.orElseThrow(() -> new RuntimeException("User not found")).getEmail()).isEqualTo(
+            "test-register-duplicate-email@example.com"
+        );
 
-        testUser4.orElseThrow().setActivated(true);
-        userService.updateUser((new AdminUserDTO(testUser4.orElseThrow())));
+        testUser4.orElseThrow(() -> new RuntimeException("User not found")).setActivated(true);
+        userService.updateUser((new AdminUserDTO(testUser4.orElseThrow(() -> new RuntimeException("User not found")))));
 
         // Register 4th (already activated) user
         restAccountMockMvc
@@ -355,9 +357,11 @@ class AccountResourceIT {
 
         Optional<User> userDup = userRepository.findOneWithAuthoritiesByLogin("badguy");
         assertThat(userDup).isPresent();
-        assertThat(userDup.orElseThrow().getAuthorities())
+        assertThat(userDup.orElseThrow(() -> new RuntimeException("User not found")).getAuthorities())
             .hasSize(1)
-            .containsExactly(authorityRepository.findById(AuthoritiesConstants.USER).orElseThrow());
+            .containsExactly(
+                authorityRepository.findById(AuthoritiesConstants.USER).orElseThrow(() -> new RuntimeException("Authority not found"))
+            );
 
         userService.deleteUser("badguy");
     }
@@ -491,7 +495,7 @@ class AccountResourceIT {
             .perform(post("/api/account").contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(userDTO)))
             .andExpect(status().isBadRequest());
 
-        User updatedUser = userRepository.findOneByLogin("save-existing-email").orElseThrow();
+        User updatedUser = userRepository.findOneByLogin("save-existing-email").orElseThrow(() -> new RuntimeException("User not found"));
         assertThat(updatedUser.getEmail()).isEqualTo("save-existing-email@example.com");
 
         userService.deleteUser("save-existing-email");

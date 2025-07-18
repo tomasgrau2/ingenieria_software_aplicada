@@ -258,7 +258,7 @@ class ProductResourceIT {
         long databaseSizeBeforeUpdate = getRepositoryCount();
 
         // Update the product
-        Product updatedProduct = productRepository.findById(product.getId()).orElseThrow();
+        Product updatedProduct = productRepository.findById(product.getId()).orElseThrow(() -> new RuntimeException("Product not found"));
         // Disconnect from session so that the updates on updatedProduct are not directly saved in db
         em.detach(updatedProduct);
         updatedProduct
@@ -504,7 +504,7 @@ class ProductResourceIT {
     }
 
     protected Product getPersistedProduct(Product product) {
-        return productRepository.findById(product.getId()).orElseThrow();
+        return productRepository.findById(product.getId()).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
     protected void assertPersistedProductToMatchAllProperties(Product expectedProduct) {
