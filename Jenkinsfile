@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'productapp'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
-        DOCKER_REGISTRY = 'your-dockerhub-username'
+        DOCKER_REGISTRY = 'tomasgrau123'
     }
     
     stages {
