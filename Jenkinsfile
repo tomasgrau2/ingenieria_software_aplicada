@@ -16,7 +16,7 @@ pipeline {
         
         stage('Build Application') {
             steps {
-                bat 'mvnw.cmd clean package -DskipTests'
+                bat 'mvnw.cmd clean package -DskipTests -Pprod -Dspring.profiles.active=prod'
             }
         }
         
