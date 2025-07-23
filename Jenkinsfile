@@ -16,13 +16,13 @@ pipeline {
         
         stage('Build Application') {
             steps {
-                sh './mvnw clean package -DskipTests'
+                bat 'mvnw.cmd clean package -DskipTests'
             }
         }
         
         stage('Test') {
             steps {
-                sh './mvnw test'
+                bat 'mvnw.cmd test'
             }
         }
         
